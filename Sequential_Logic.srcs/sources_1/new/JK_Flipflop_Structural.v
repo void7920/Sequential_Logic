@@ -38,10 +38,10 @@ module JK_Flipflop_Structural(
     input j;
     input k;
     
-    wire w1, w2;
+    wire q1, q1_;
     
-    nand(w1, j, clk, q_);
-    nand(w2, k, clk, q);
-    nand(q, q_, w1, pre_n);
-    nand(q_, q, w2, clr_n);
+    nand(q1, q1_, ~(j & q_ & ~clk), pre_n);
+    nand(q1_, q1, ~(k & q & ~clk), clr_n);
+    nand(q, q_, ~(q1 & clk), pre_n);
+    nand(q_, q, ~(q1_ & clk), clr_n);
 endmodule
